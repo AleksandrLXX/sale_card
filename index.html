@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" >
+    <title>购物车</title>
+    <link rel="stylesheet" href="./css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="./css/bootstrap-grid.css">
+    <link rel="stylesheet" href="./swiper/swiper.min.css">
+    <link rel="stylesheet" href="./css/theme.css">
+</head>
+<body class='position-relative' >
+    <section class='plain-1  d-flex flex-column align-items-stretch' style="width:100%;height:100%;">
+        <div class="header bg-red flex-shrink-0 flex-grow-0 text-center text-white">
+            温州戒毒所自助购物
+        </div>
+        <section class='content-container  flex-fill  d-flex flex-row align-items-stretch position-relative' style='overflow: visible;width:100%;' data-step='1'>
+            <section class='content content-1 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch' style="width:100%">
+                <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div>
+                <div class="right flex-fill d-flex flex-column align-items-stretch" style='background-color:#fffefd '>
+                    <div class='text-center text-red shadow bg-white' style="height: 80px;line-height:80px;font-weight: 600;">生鲜农产</div>
+                    <div class='list-container'>
+                          
+                    </div>
+                </div>
+            </section>
+            <section class='content content-2 p-4 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch ' style="width:100%;background-color:#f2f2f2">
+                <div class='d-flex flex-column align-items-stretch flex-fill  bg-white shadow p-3' style="border-radius:40px;background-color: #fff;color:black;">
+                    <div class='pl-2 flex-shrink-0 flex-grow-0' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-bottom:2px solid #eee">
+                        商品详情 <div class='clickable return text-center' style='float:right;width:80px;height:80px;' pointer>×</div>
+                    </div>
+                    <div class='list-container flex-fill' style='width:100%'>
+                        
+                    </div>
+                    <div class='pl-2 flex-shrink-0 flex-grow-0 text-right' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-top:2px solid #eee">
+                        共<span class='text-red'>1</span>件 <span class='text-red'>￥ 20.00</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <div class="footer flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch text-white bg-red" style = 'height:170px;line-height: 170px;font-size: 1.6em;'>
+            <div class='d-flex flex-row  align-items-center ' style="width:700px;border-right:#aaa solid 1px;">
+                <!-- 图标 修改background-image -->
+                <div class="flex-shrink-0 flex-grow-0 bgi-normal ml-3 mr-4" style="width:80px;height:80px;background-image: url(./img/餐具.png);"></div>
+                 <!-- 图标 修改background-image -->
+                <div class='flex-fill'>
+                    ￥ 888.0
+                </div>
+            </div>
+            <div class='flex-fill text-center select-done' style=''>
+                选好了 ›
+            </div>
+        </div>
+    </section>
+    <section class='modal position-absolute' hidden
+    style='left:0;right:0;top:0;bottom:0;z-index: 999;background-color: rgba(0,0,0,.15);'>
+        <div class='faceID bgi-normal bg-white absolute-center d-flex flex-column align-items-center' style="border-radius: 30px;width:780px;height:930px;">
+            <div class='bgi-normal' style='background-image: url(./img/人脸识别.png);margin-top:190px;width:450px;height:450px'></div>
+            <div style="margin-top:120px;font-size: 1.2em">请对准摄像头</div>          
+        </div>
+        <div class='success bgi-normal bg-white absolute-center  d-flex flex-column align-items-center'  style="border-radius: 30px;width:780px;height:930px;">
+            <div class='bgi-normal' style='background-image: url(./img/成功.png);margin-top:350px;width:100px;height:100px'></div>
+            <div style="margin-top:120px;font-size: 1.2em">购买成功</div>
+        </div>
+    </section>
+    <script id="left-list-group-template" type="text/x-handlebars-template">
+        <section class="term-group d-flex flex-column align-items-center my-2 py-2" style="order:{{termGroupOrder}};height: auto;" data-index="{{indexDefault}}">
+            <div class='bgi-normal my-2' style='width:80px;height:80px;background-image: url({{img}})'>
+            </div> 
+            <div class="term-title  text-left pl-1" data-code='{{dept_id}}'>{{text}}</div>
+        </section>
+    </script>
+    <script id="left-list-wrapper-template" type="text/x-handlebars-template">
+        <div class="list-wrapper d-flex flex-column" style="">
+            
+        </div>
+    </script>
+    <script id="right-list-group-template" type="text/x-handlebars-template">
+
+        <div class="term-group term-list d-flex flex-row flex-wrap" style='font-size: 1.1em;font-weight: 400;'>
+        {{#each terms}}
+            <section class="term-unit d-flex flex-column align-items-center my-2 py-2" style="order:{{termGroupOrder}};width:450px;height: 560px;" data-index="{{indexDefault}}">
+                <div class='bgi-normal my-2 bg-white shadow' style='width:420px;height:420px;background-image: url({{img}})'>
+                </div> 
+                <div class="term-title  text-center pl-1" data-code='{{dept_id}}' style='width:100%'>{{name}}</div>
+                <div class="term-title  text-left pl-3" data-code='{{dept_id}}' style='width:100%'>
+                    <span class='text-red'>￥ {{price}}</span>
+                    <span class='bgi-normal shadow rounded-circle text-white d-inline-block clickable' style='height:40px;width:40px;float:right;background-image:url(./img/add-btn.png)'>
+                     </span>   
+                </div>
+            </section>
+        {{/each}}    
+        </div>
+    </script>
+    <script id="detail-list-group-template" type="text/x-handlebars-template">
+        <section class="term-group d-flex flex-row  my-2 py-2" style="width:100%;order:{{termGroupOrder}};height: auto;" data-index="{{indexDefault}}">
+            <div class='ml-1' style='color:#9e9e9e;width:70%'>
+                {{name}}
+            </div> 
+            <div class="text-left pl-1" data-code='{{dept_id}}' style:"width:20%">
+                ￥ {{price}}
+            </div>
+            <div class="text-left ml-3 mt-1" style='color:#9e9e9e;font-size:0.7em;line-height:1.5em'>
+                x {{amt}}
+            </div>
+        </section>
+    </script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/handlebars.js"></script>
+    <script type="text/javascript" src="./js/jquery-handlebars.js"></script>
+    <script type="text/javascript" src="./js/hammer.js"></script>
+    <script type="text/javascript" src="./swiper/swiper.min.js"></script>
+    <script type="text/javascript" src="./js/list.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+</body>
+</html>
