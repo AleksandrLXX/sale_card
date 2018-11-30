@@ -13,13 +13,16 @@
 <body class='position-relative' >
     <section class='plain-1  d-flex flex-column align-items-stretch' style="width:100%;height:100%;">
         <div class="header bg-red flex-shrink-0 flex-grow-0 text-center text-white">
-            温州戒毒所自助购物
+            自主贩卖机
         </div>
         <section class='content-container  flex-fill  d-flex flex-row align-items-stretch position-relative' style='overflow: visible;width:100%;' data-step='1'>
             <section class='content content-1 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch' style="width:100%">
-                <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div>
+                <!-- <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div> -->
                 <div class="right flex-fill d-flex flex-column align-items-stretch" style='background-color:#fffefd '>
-                    <div class='text-center text-red shadow bg-white' style="height: 80px;line-height:80px;font-weight: 600;">生鲜农产</div>
+                    <div class='text-left text-red shadow bg-white px-4' style="height: 80px;line-height:80px;font-weight: 600;">
+                        商品明细
+                        <span class='user' style="float:right" >未登录</span>
+                    </div>
                     <div class='list-container'>
                           
                     </div>
@@ -55,9 +58,9 @@
     </section>
     <section class='modal position-absolute' hidden
     style='left:0;right:0;top:0;bottom:0;z-index: 999;background-color: rgba(0,0,0,.15);'>
-        <div class='faceID bgi-normal bg-white absolute-center d-flex flex-column align-items-center' style="border-radius: 30px;width:780px;height:930px;">
-            <div class='bgi-normal' style='background-image: url(./img/人脸识别.png);margin-top:190px;width:450px;height:450px'></div>
-            <div style="margin-top:120px;font-size: 1.2em">请对准摄像头</div>          
+        <div class='qr_scan bgi-normal bg-white absolute-center d-flex flex-column align-items-center' style="border-radius: 30px;width:780px;height:930px;">
+            <div class='bgi-normal' style='background-image: url(./img/qr_scan.png);margin-top:190px;width:450px;height:450px'></div>
+            <div style="margin-top:120px;font-size: 1.2em">请将付款码对准摄像头</div>          
         </div>
         <div class='success bgi-normal bg-white absolute-center  d-flex flex-column align-items-center'  style="border-radius: 30px;width:780px;height:930px;">
             <div class='bgi-normal' style='background-image: url(./img/成功.png);margin-top:350px;width:100px;height:100px'></div>
@@ -80,11 +83,11 @@
 
         <div class="term-group term-list d-flex flex-row flex-wrap" style='font-size: 1.1em;font-weight: 400;'>
         {{#each terms}}
-            <section class="term-unit d-flex flex-column align-items-center my-2 py-2" style="order:{{termGroupOrder}};width:450px;height: 560px;" data-index="{{indexDefault}}">
+            <section class="term-unit d-flex flex-column align-items-center my-2 py-2" style="order:{{termGroupOrder}};width:535px;height: 560px;" data-index="{{indexDefault}}">
                 <div class='bgi-normal my-2 bg-white shadow' style='width:420px;height:420px;background-image: url({{img}})'>
                 </div> 
                 <div class="term-title  text-center pl-1" data-code='{{dept_id}}' style='width:100%'>{{name}}</div>
-                <div class="term-title  text-left pl-3" data-code='{{dept_id}}' style='width:100%'>
+                <div class="term-title  text-left px-4" data-code='{{dept_id}}' style='width:100%'>
                     <span class='text-red'>￥ {{price}}</span>
                     <span class='bgi-normal shadow rounded-circle text-white d-inline-block clickable' style='height:40px;width:40px;float:right;background-image:url(./img/add-btn.png)'>
                      </span>   

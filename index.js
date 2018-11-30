@@ -11,35 +11,15 @@ $(function(){
 			$('.modal').attr('hidden','');
 		},
 		show(str){
-			$('.modal').find('.faceID,.success').attr('hidden','')
+			$('.modal').find('.qr_scan,.success').attr('hidden','')
 			$('.modal').find('.'+str).removeAttr('hidden').end().removeAttr('hidden')
 		}
 	}
 	window.modal = modal
 	// modal.hide()
-	// modal.show('faceID')
-	// modal.show('success')
-	
-	$('.content-1 .left').initList({
-		wrapperTemplate:$('#left-list-wrapper-template'),
-		groupTemplate:$('#left-list-group-template'),
-		data:new Array(20).fill('').map(item=>{
-			return {
-				img:'./img/餐具.png',
-				text:'生鲜农产',
-				id:'2142',
-			}
-		}),
-		useSwiperPlugin:true,
-		dataMap:{
-			//可以在页面自定义hanldlebars模板
-			title:'id',
-			terms:null,
-			// term:'dept_name',
-			// description:'description',
-			slideItemClass: '.term-group',
-		}
-	})
+	// modal.show('qr_scan')
+    // modal.show('success')
+    
 	$('.content-1 .right .list-container').initList({
 		wrapperTemplate:$('#left-list-wrapper-template'),
 		groupTemplate:$('#right-list-group-template'),
@@ -48,8 +28,8 @@ $(function(){
 			name:'生鲜农产',
 			items:new Array(20).fill('').map(item=>{
 				return {
-					img:'./img/白雪公主苹果.png',
-					name:'白雪公主无敌超级大苹果',
+					img:'./img/issue1.jpg',
+					name:'护理液',
 					price:'100.0',
 					id:'2142',
 				}
@@ -96,7 +76,7 @@ $(function(){
 
 	$('.select-done').on('click',function(){
 		// 去第二页
-		modal.show('faceID')
+		modal.show('qr_scan')
 		// $('.content-container').attr('data-step',2)
 	})
 	$('.return').on('click',function(){
