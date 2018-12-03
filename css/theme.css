@@ -11,8 +11,9 @@ html,body {
     --light:#fff;
     --fz:35px;
     --main:#85baa2;
-    --gray:#fff;
-    --red:#c53f3c;
+    --gray:#999;
+    --red:#d81e06;
+    --blue:#1296db;
     --deep-red:#ce4045;
 }
 div{
@@ -87,6 +88,9 @@ div{
 .text-red{
     color:var(--red);
 }
+.text-blue{
+    color:var(--blue);
+}
 .position-relative{
     position: relative;
 }
@@ -96,7 +100,9 @@ div{
 .bg-red{
     background-color: var(--red);
 }
-
+.bg-gray{
+    background-color: var(--gray);
+}
 .bg-white{
     background-color: #fff;
 }
@@ -114,3 +120,19 @@ div{
     background-color: #fffefd;
 }
 
+.swiper-wrapper{
+    display: flex;
+    flex-direction: column;
+    height:auto!important;
+}
+.iconfont{
+    font-family: 'iconfont'!important;
+}
+@font-face {
+    font-family: 'iconfont';  /* project id 947218 */
+    src: url('http://at.alicdn.com/t/font_947218_vm0jewzms1.eot');
+    src: url('http://at.alicdn.com/t/font_947218_vm0jewzms1.eot?#iefix') format('embedded-opentype'),
+    url('http://at.alicdn.com/t/font_947218_vm0jewzms1.woff') format('woff'),
+    url('http://at.alicdn.com/t/font_947218_vm0jewzms1.ttf') format('truetype'),
+    url('http://at.alicdn.com/t/font_947218_vm0jewzms1.svg#iconfont') format('svg');
+  }
