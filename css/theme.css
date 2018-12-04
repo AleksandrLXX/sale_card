@@ -130,11 +130,11 @@ div{
 }
 @font-face {
     font-family: 'iconfont';  /* project id 947218 */
-    src: url('http://at.alicdn.com/t/font_947218_aox7jsvhbi.eot');
-    src: url('http://at.alicdn.com/t/font_947218_aox7jsvhbi.eot?#iefix') format('embedded-opentype'),
-    url('http://at.alicdn.com/t/font_947218_aox7jsvhbi.woff') format('woff'),
-    url('http://at.alicdn.com/t/font_947218_aox7jsvhbi.ttf') format('truetype'),
-    url('http://at.alicdn.com/t/font_947218_aox7jsvhbi.svg#iconfont') format('svg');
+    src: url('../font/iconfont.eot');
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../font/iconfont.svg#iconfont') format('svg');
   }
 
   .detail::before{
