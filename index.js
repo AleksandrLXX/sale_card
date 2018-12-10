@@ -108,10 +108,10 @@ $(function(){
         methods:{
             handleGoodPlus(id){
                 // 如果没有这个限制 请注释掉
-                if(this.selected.length>0 && this.selected[0].id !=id){
-                   this.$toasted.error('目前不支持同时添加多个商品')
-                    return;
-                }
+                // if(this.selected.length>0 && this.selected[0].id !=id){
+                //    this.$toasted.error('目前不支持同时添加多个商品')
+                //     return;
+                // }
 
                 let length = this.selected.find(good=>good.id==id)? this.selected.find(good=>good.id==id).amt:0;
                 if( length >= this.goods_raw.find(good=>good.id==id).limit){
@@ -198,7 +198,7 @@ $(function(){
         </div>
         <section class='content-container  flex-fill  d-flex flex-row align-items-stretch position-relative' style='overflow: visible;width:100%;' data-step='1'>
             <section class='content content-1 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch' style="width:100%">
-                <!-- <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div> -->
+                <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div>
                 <div class="right flex-fill d-flex flex-column align-items-stretch" style='background-color:#fffefd '>
                     <div class='text-left text-red shadow bg-white px-4' style="height: 80px;line-height:80px;font-weight: 600;">
                         商品明细
