@@ -23,6 +23,8 @@ $(function(){
             },
             // 商品清单
             goods_list:[],
+            // 选中的组
+            selectedGroup:{},
             //已选项 /购物车
             selected:[],
             footer:{
@@ -38,6 +40,24 @@ $(function(){
                 // show: [false|''|'id_scan'|'qr_scan'|'success']
                 show:'',
                 
+            },
+            swiperOption_left:{
+                direction:'vertical',
+                // 点击与滑动的点击位置  数字越大 越容易在滑动中触发点击 
+                clickDeviation:20,
+                // 触发惯性滑动的阈值  数字越小 越容易触发惯性滑动
+                velocityThreshold:0.1,
+                // 惯性速率  数字越大  触发的惯性滑动距离越大
+                momentumRatio:1,
+                // 回弹系数 0-1  数字越大  可以继续拖动的距离越大
+                resistance: 0.3,
+                freeMode:true,
+                slidesPerView:'auto',
+                freeModeMinimumVelocity:0.1,
+                scrollbar:{
+                    el: '.swiper-scrollbar-left',
+                    hide: true,
+                }
             },
             swiperOption:{
                 direction:'vertical',
@@ -75,12 +95,35 @@ $(function(){
                     hide: true,
                 }
             },
+            swiperOption_pre:{
+                direction:'vertical',
+                // 点击与滑动的点击位置  数字越大 越容易在滑动中触发点击 
+                clickDeviation:20,
+                // 触发惯性滑动的阈值  数字越小 越容易触发惯性滑动
+                velocityThreshold:0.1,
+                // 惯性速率  数字越大  触发的惯性滑动距离越大
+                momentumRatio:1,
+                // 回弹系数 0-1  数字越大  可以继续拖动的距离越大
+                resistance: 0.3,
+                freeMode:true,
+                slidesPerView:'auto',
+                freeModeMinimumVelocity:0.1,
+                scrollbar:{
+                    el: '#swiper-scrollbar-pre',
+                    hide: true,
+                }
+            },
         },
         computed:{
             // 商品总额
             amt(){
                 return this.selected.reduce((prev,next)=>{
                     return prev += Number(next.price) * next.amt
+                },0)
+            },
+            amtIssue(){
+                return this.selected.reduce((prev,next)=>{
+                    return prev +=  next.amt
                 },0)
             },
             modalMask(){
@@ -96,6 +139,9 @@ $(function(){
                     }
                     return prev;
                 },[])
+            },
+            mySwiper() {
+                return this.$refs.mySwiper.swiper
             }
         },
         watch:{
@@ -106,6 +152,11 @@ $(function(){
             }
         },
         methods:{
+            handleGroupClick(group){
+                this.selectedGroup = group
+                let idx = this.goods_list.findIndex(item=> item == group)
+                this.mySwiper.slideTo(idx)
+            },
             handleGoodPlus(id){
                 // 如果没有这个限制 请注释掉
                 // if(this.selected.length>0 && this.selected[0].id !=id){
@@ -141,23 +192,24 @@ $(function(){
                    this.$toasted.error('您当前还未选择任何商品')
                     return;
                 }
+                this.footer.detail = false;
+                this.modal.show = 'pre_pay'
+                
+            },
+            logout(){
+                this.user={
+                    id:'',
+                    name:'',
+                }
+                this.selected = []
+                this.modal.show=false
+                this.footer.detail = false
+            },
+            confirmPrepay(){
                 //如果已经登陆 直接进行付款
                 if(this.user.id){
                     this.footer.detail = false;
-                    
-                    this.modal.show = 'qr_scan'
-                    
-                    /** 
-                     * 模拟代码
-                     * 默认付款成功
-                     */
-                    let time = setTimeout(() => {
-                        
-                        this.modal.show = 'success'
-                        //清空已选项目
-                        this.selected = []
-                        clearTimeout(time)
-                    }, 2000);
+                    this.modal.show = 'success'
                     return;
                 }
                 // 没有登陆就先扫码
@@ -173,22 +225,23 @@ $(function(){
                     }
                     this.modal.show = false
                     // 直接进行付款
-                    this.handleSelectDone()
+                    this.confirmPrepay()
                     clearTimeout(time)
                 }, 2000);
-            },
-            logout(){
-                this.user={
-                    id:'',
-                    name:'',
-                }
-                this.selected = []
-                this.modal.show=false
-                this.modal.detail = false
             },
             closeModal(){
                 this.modal.show=false
                 
+            }
+        },
+        created(){
+            let that = this
+            this.swiperOption.on={
+                slideChangeTransitionStart(){
+                    let idx = this.activeIndex
+                    that.selectedGroup = that.goods_list[idx]
+
+                }
             }
         },
         template:`\
@@ -198,17 +251,30 @@ $(function(){
         </div>
         <section class='content-container  flex-fill  d-flex flex-row align-items-stretch position-relative' style='overflow: visible;width:100%;' data-step='1'>
             <section class='content content-1 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch' style="width:100%">
-                <div class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'></div>
+                <swiper :options='swiperOption_left'  
+                 class="left flex-shrink-0 flex-grow-0 " style='background-color: #f2f2f2;width:170px;'>
+                    <swiper-slide v-for='item in goods_list' :key='item.name'
+                    :class="{'selected':selectedGroup.id == item.id}"
+                    @click.native='handleGroupClick(item)'
+                    class="term-group d-flex flex-column align-items-center my-2 py-2" style="height: auto;" >
+                        <div class='bgi-normal my-2' style='width:80px;height:80px;'
+                        :style="{'background-image': 'url('+item.img+')'}">
+                        </div> 
+                        <div class="term-title  text-left pl-1">{{item.name}}</div>
+                    </swiper-slide>
+                    <div class="swiper-scrollbar-left"   slot="scrollbar"></div>
+                </swiper>
                 <div class="right flex-fill d-flex flex-column align-items-stretch" style='background-color:#fffefd '>
                     <div class='text-left text-red shadow bg-white px-4' style="height: 80px;line-height:80px;font-weight: 600;">
-                        商品明细
-                        <span class='user' style="float:right" >{{user.name?"您好,"+user.name:"未登录"}}</span>
+                        {{selectedGroup.name||'商品明细'}}
+                        <span class='user' style="float:right;text-decoration:underline;" v-if='user.id' @click='logout'>退出登录</span>
+                        <span class='user mr-2' style="float:right" >{{user.name?"您好,"+user.name:"未登录"}}</span>
                     </div>
-                    <swiper :options="swiperOption" class='list-container'>
+                    <swiper :options="swiperOption" class='list-container' ref="mySwiper">
                         <swiper-slide v-for='goods in goods_list' :key='goods.name' class="term-group term-list d-flex flex-row flex-wrap" style='font-size: 1.1em;font-weight: 400;'>
 
-                            <section v-for='(item,index) in goods.items'  class="term-unit d-flex flex-column align-items-center my-2 py-2" style="width:535px;height:560px;" :key='item.id'>
-                                <div class='bgi-normal my-2 bg-white shadow' style='width:420px;height:420px;'
+                            <section v-for='(item,index) in goods.items'  class="term-unit d-flex flex-column align-items-center my-2 py-2" style="width:455px;height:560px;" :key='item.id'>
+                                <div class='bgi-normal my-2 bg-white shadow' style='width:400px;height:400px;'
                                 :style='{"background-image":"url("+item.img+")"}'>
                                 </div> 
                                 <div class="term-title  text-center pl-1" data-code='' style='width:100%'>{{name}}</div>
@@ -234,19 +300,6 @@ $(function(){
                         </swiper-slide>
                         <div class="swiper-scrollbar"   slot="scrollbar"></div>
                     </swiper>
-                </div>
-            </section>
-            <section class='content content-2 p-4 flex-shrink-0 flex-grow-0 d-flex flex-row align-items-stretch ' style="width:100%;background-color:#f2f2f2">
-                <div class='d-flex flex-column align-items-stretch flex-fill  bg-white shadow p-3' style="border-radius:40px;background-color: #fff;color:black;">
-                    <div class='pl-2 flex-shrink-0 flex-grow-0' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-bottom:2px solid #eee">
-                        商品详情 <div class='clickable return text-center' style='float:right;width:80px;height:80px;' pointer>×</div>
-                    </div>
-                    <div class='list-container flex-fill' style='width:100%'>
-                        
-                    </div>
-                    <div class='pl-2 flex-shrink-0 flex-grow-0 text-right' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-top:2px solid #eee">
-                        共<span class='text-red'>1</span>件 <span class='text-red'>￥ 20.00</span>
-                    </div>
                 </div>
             </section>
         </section>
@@ -301,6 +354,37 @@ $(function(){
             <div class='bgi-normal' style='background-image: url(./img/qr_scan.png);margin-top:190px;width:450px;height:450px'></div>
             <div style="margin-top:120px;font-size: 1.2em">请将付款码对准摄像头</div>          
         </div>
+        <section v-if='modal.show=="pre_pay"' class='position-absolute content content-2 p-4 flex-shrink-0 flex-grow-0 d-flex flex-column align-items-stretch ' style="width:100%;height:100%;background-color:#f2f2f2;z-index:10001">
+            <div class='d-flex flex-column align-items-stretch flex-fill  bg-white shadow p-3' style="border-radius:40px;background-color: #fff;color:black;">
+                <div class='pl-2 flex-shrink-0 flex-grow-0' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-bottom:2px solid #eee">
+                    已购商品 
+                </div>
+                <swiper :options="swiperOption_pre" class='list-container flex-fill' style='width:100%'>
+                    <swiper-slide v-for='item in selected' :key='"pre"+item.id'
+                     class="term-group d-flex flex-row  my-2 py-2" style="width:100%;height: auto;" >
+                        <div class='ml-1' style='color:#9e9e9e;width:70%'>
+                            {{item.name}}
+                        </div> 
+                        <div class="text-left pl-1" style="width:20%">
+                            {{item.price}}
+                        </div>
+                        <div class="text-left ml-3 mt-1" style='color:#9e9e9e;font-size:0.7em;line-height:1.5em'>
+                            x {{item.amt}}
+                        </div>
+                    </swiper-slide>
+                    <div id="swiper-scrollbar-pre"   slot="scrollbar"></div>
+                </swiper>
+                <div class='pl-2 flex-shrink-0 flex-grow-0 text-right' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-top:2px solid #eee">
+                    共<span class='text-red'> {{amtIssue}} </span>件 <span class='text-red'>￥ {{amt}}</span>
+                </div>
+            </div>
+            <div @click='confirmPrepay' class='shadow my-2 pl-2 flex-shrink-0 flex-grow-0 text-center bg-red text-white' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;">
+                确认 
+            </div>
+            <div @click='closeModal' class='shadow mt-2 pl-2 flex-shrink-0 flex-grow-0 text-center bg-gray text-white' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;margin-bottom:200px;">
+                再逛逛
+            </div>
+        </section>
         <div  v-if='modal.show=="success"' class='success bgi-normal bg-white absolute-center  d-flex flex-column align-items-center'  style="border-radius: 30px;width:780px;height:930px;z-index:10001">
             <div class='bgi-normal' style='background-image: url(./img/成功.png);margin-top:350px;width:100px;height:100px'></div>
             <div style="margin-top:120px;font-size: 1.2em">购买成功</div>
@@ -323,7 +407,9 @@ $(function(){
     var idx = 0
     app.goods_list = [
         {	
-			name:'商品类目Ⅰ',
+            name:'商品类目Ⅰ',
+            img:'./img/餐具.png',
+            id:'2142',
 			items:new Array(20).fill('').map(item=>{
 				return {
 					img:'./img/issue1.jpg',
@@ -333,7 +419,35 @@ $(function(){
                     limit:10,
 				}
 			})
-		}
+        },
+        {	
+            name:'商品类目Ⅱ',
+            img:'./img/餐具.png',
+            id:'2143',
+			items:new Array(20).fill('').map(item=>{
+				return {
+					img:'./img/issue1.jpg',
+					name:'护理液',
+					price:'100.0',
+                    id:idx++,
+                    limit:10,
+				}
+			})
+		},
+        {	
+            name:'商品类目Ⅲ',
+            img:'./img/餐具.png',
+            id:'2144',
+			items:new Array(20).fill('').map(item=>{
+				return {
+					img:'./img/issue1.jpg',
+					name:'护理液',
+					price:'100.0',
+                    id:idx++,
+                    limit:10,
+				}
+			})
+		},
     ]
 
 	
