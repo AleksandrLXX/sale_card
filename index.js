@@ -277,7 +277,7 @@ $(function(){
                                 <div class='bgi-normal my-2 bg-white shadow' style='width:400px;height:400px;'
                                 :style='{"background-image":"url("+item.img+")"}'>
                                 </div> 
-                                <div class="term-title  text-center pl-1" data-code='' style='width:100%'>{{name}}</div>
+                                <div class="term-title  text-center pl-1" data-code='' style='width:100%'>{{item.name}}</div>
                                 <div class="d-flex flex-row term-title  text-left px-4 position-relative" data-code='' style='width:100%;margin-top:5px'>
                                     <span class='text-red'>￥{{item.price}}</span>
                                     <div class='position-absolute' style='width:40%;right:45px'>
@@ -354,6 +354,11 @@ $(function(){
             <div class='bgi-normal' style='background-image: url(./img/qr_scan.png);margin-top:190px;width:450px;height:450px'></div>
             <div style="margin-top:120px;font-size: 1.2em">请将付款码对准摄像头</div>          
         </div>
+        <phone-board v-if='modal.show=="phone-board"'
+        :initialValue = '3304'
+         class=' absolute-center d-flex flex-column align-items-center' style="border-radius: 30px;width:100%;height:1500px;z-index:10001">
+                   
+        </phone-board>
         <section v-if='modal.show=="pre_pay"' class='position-absolute content content-2 p-4 flex-shrink-0 flex-grow-0 d-flex flex-column align-items-stretch ' style="width:100%;height:100%;background-color:#f2f2f2;z-index:10001">
             <div class='d-flex flex-column align-items-stretch flex-fill  bg-white shadow p-3' style="border-radius:40px;background-color: #fff;color:black;">
                 <div class='pl-2 flex-shrink-0 flex-grow-0' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-bottom:2px solid #eee">
