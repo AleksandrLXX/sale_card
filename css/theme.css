@@ -187,7 +187,10 @@ div {
     opacity: 0.5;
     z-index: -1;
 }
+.toasted-container{
+    z-index:999999!important;
 
+}
 .jd-toasted {
     text-align: center;
     font-size: 35px !important;
@@ -195,8 +198,8 @@ div {
 }
 
  .screen {
-    height: 220px;
-    width: 980px;
+    height: 200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 10px;
     /* background:  linear-gradient(180deg, #FFFFFF 0%, #9ab9bccc 100%); */
@@ -207,14 +210,15 @@ div {
     border-bottom-right-radius: 0;
     margin-bottom: 10px;
     /* Typography */
-    font-size: 120px;
-    line-height: 200px;
+    font-size: 100px;
+    line-height: 180px;
     color:white;
     text-align: right;
     overflow: auto;
 }
 
 .keyboard-wrapper {
+    font-family: "Quicksand", "KaiTi", -apple-system, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "sans-serif";
     background: linear-gradient(180deg, #EEEEEE 0%, #D8D8D8 100%);
     border-radius: 20px;
     box-shadow: inset 0 3px 5px rgba(255, 255, 255, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.5), 0 10px 0 #AFAFAF;
@@ -222,7 +226,7 @@ div {
     /* height: 310px; */
     margin: 0 auto;
     position: relative;
-    width: 980px;
+    width: 910px;
     height: 100%;
 }
 
@@ -236,7 +240,11 @@ div {
     width: 85%;
     z-index: -1;
 }
-
+.keyboard-wrapper .tip{
+    font-size: 70px;
+    margin:10px 70px;
+    text-align: right;
+}
 .raised-button {
     -webkit-appearance: none;
     background: linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%);
@@ -245,11 +253,11 @@ div {
     box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.5), 0 10px 0 #C9C9C9, 0 10px 6px rgba(0, 0, 0, 0.3), 0 12px 8px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     display: inline-block;
-    height: 220px;
+    height: 200px;
     margin: 15px 0 0 20px;
     outline: 0;
     position: relative;
-    width: 260px;
+    width: 230px;
     z-index: 2;
 }
 
@@ -262,6 +270,6 @@ div {
 .raised-button span {
     color: #9F9F9F;
     font-family: "Quicksand", "KaiTi", -apple-system, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", "sans-serif";
-    font-size: 120px;
+    font-size: 85px;
     user-select: none;
 }

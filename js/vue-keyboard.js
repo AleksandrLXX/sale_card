@@ -19,6 +19,13 @@ Vue.component(
     props:{
         initialValue:{
             type:[String,Number]
+        },
+        tip:{
+            type:[]
+        },
+        limit:{
+            type:Number,
+            default:4
         }
     },
     methods:{
@@ -50,8 +57,11 @@ Vue.component(
             this.$emit('keyboard-cancle');
         },
         handleNumClick(i){
-            
-            this.value+=i;
+            if(this.value.length<this.limit){
+                this.value+=i;
+            }else{
+                this.$emit('digital-overflow')
+            }
         },
         handleClear(){
             this.value='';
@@ -68,15 +78,14 @@ Vue.component(
         
     },
     destroyed(){
-        let parent = this.$el.parentNode;
-        parent.removeChild(this.$el)
-
+        // let parent = this.$el.parentNode;
+        // parent.removeChild(this.$el)
     },
     template:`\
     <div class='model flex-column center'>
         <div class="flex-column center keyboard-wrapper">
             <div class='screen number'  txt show style="">{{value.slice(-12)}}</div>
-            <section  class="d-flex num-board flex-row flex-wrap align-content-around" style='height:1000px;padding:0 0 0 60px'>
+            <section  class="d-flex num-board flex-row flex-wrap align-content-around" style='height:920px;padding:0 0 0 70px'>
                 <div v-for = "item in numArr" class='flex-shrink-0 raised-button num-button' 
                 :label="item+''" :data-num="item"  
                 @click="handleNumClick(item)" 
@@ -89,7 +98,7 @@ Vue.component(
                     <span>清除</span>
                 </div>
                 <div style="" class='raised-button num-button' :label="'0'"   
-                @click="handleNumClick($event,0)" 
+                @click="handleNumClick(0)" 
                 >
                     <span>0</span>
                 </div>
@@ -99,16 +108,17 @@ Vue.component(
                     <span>←</span>
                 </div>
             </section>
-            <div class='input-confirm d-flex flex-row  flex-bottom' style='padding:0 0 0 60px;'>
+            <div class='input-confirm d-flex flex-row  flex-bottom' style='padding:0 0 0 70px;'>
                 <div class='raised-button' label=" 取消 " 
                 @click="handlePhoneCancle">
                     <span> 取消 </span>
                 </div>
-                <div class='raised-button' label=" 确认 " style='width:540px'
+                <div class='raised-button' label=" 确认 " style='width:480px'
                 @click="handlePhoneConfirm" >
                     <span> 确认 </span>
                 </div>
-            </div>	
+            </div>
+            <div v-if='tip' class='text-red tip' >{{tip}}</div>	
         </div>
 	</div>
     `

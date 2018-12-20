@@ -229,6 +229,11 @@ $(function(){
                     clearTimeout(time)
                 }, 2000);
             },
+            handleKeyboardConfirm(val){
+                console.log('寝室号为',val)
+                this.$toasted.success(val)
+                this.modal.show = false
+            },
             closeModal(){
                 this.modal.show=false
                 
@@ -355,10 +360,10 @@ $(function(){
             <div style="margin-top:120px;font-size: 1.2em">请将付款码对准摄像头</div>          
         </div>
         <phone-board v-if='modal.show=="phone-board"'
-        :initialValue = '3304'
-         class=' absolute-center d-flex flex-column align-items-center' style="border-radius: 30px;width:100%;height:1500px;z-index:10001">
-                   
-        </phone-board>
+        :initialValue = '3304' tip='请输入寝室号'  :limit='4'
+        @keyboard-confirm = 'handleKeyboardConfirm' @keyboard-cancle = 'closeModal' @digital-overflow="$toasted.error('寝室号仅限四位')"
+        class=' absolute-center d-flex flex-column align-items-center' 
+        style="border-radius: 30px;width:100%;height:1500px;z-index:10001" />
         <section v-if='modal.show=="pre_pay"' class='position-absolute content content-2 p-4 flex-shrink-0 flex-grow-0 d-flex flex-column align-items-stretch ' style="width:100%;height:100%;background-color:#f2f2f2;z-index:10001">
             <div class='d-flex flex-column align-items-stretch flex-fill  bg-white shadow p-3' style="border-radius:40px;background-color: #fff;color:black;">
                 <div class='pl-2 flex-shrink-0 flex-grow-0' style="height:90px;line-height: 90px;font-size: 1.3em;font-weight: 500;border-bottom:2px solid #eee">
