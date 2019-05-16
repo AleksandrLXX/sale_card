@@ -326,7 +326,7 @@ $(function(){
             @click ='footer.detail=false'
              v-if='footer.detail && amt' 
             style='bottom:170px;color:black;z-index:99;background-color:#fff;width:100%;'>
-                <swiper :options='swiperOption_2' class='' style='width:100%;max-height:850px;overflow:hidden;'>
+                <swiper :options='swiperOption_2' class='list-container' >
                     <swiper-slide v-for='item in selected' @click.native.stop class='pl-4 bg-white d-flex flex-row justify-content-stretch' :key='"selected"+item.id'>
                         <div style='width:50%'  class='flex-shrink-0'>{{item.name}}</div>
                         <div style='wdith:20%' class='flex-shrink-0 text-red'>{{item.price}}</div>
@@ -415,50 +415,437 @@ $(function(){
 	// modal.show('qr_scan')
     // modal.show('success')
     var idx = 0
-    app.goods_list = [
-        {	
-            name:'商品类目Ⅰ',
-            img:'./img/餐具.png',
-            id:'2142',
-			items:new Array(20).fill('').map(item=>{
-				return {
-					img:'./img/issue1.jpg',
-					name:'护理液',
-					price:'100.0',
-                    id:idx++,
-                    limit:10,
-				}
-			})
-        },
-        {	
-            name:'商品类目Ⅱ',
-            img:'./img/餐具.png',
-            id:'2143',
-			items:new Array(20).fill('').map(item=>{
-				return {
-					img:'./img/issue1.jpg',
-					name:'护理液',
-					price:'100.0',
-                    id:idx++,
-                    limit:10,
-				}
-			})
-		},
-        {	
-            name:'商品类目Ⅲ',
-            img:'./img/餐具.png',
-            id:'2144',
-			items:new Array(20).fill('').map(item=>{
-				return {
-					img:'./img/issue1.jpg',
-					name:'护理液',
-					price:'100.0',
-                    id:idx++,
-                    limit:10,
-				}
-			})
-		},
-    ]
+    app.goods_list = [{
+        "img": ".\/img\/100.png",
+        "name": "生鲜农产（食品）",
+        "id": "100",
+        "items": [{
+            "img": ".\/img\/600551.jpg",
+            "price": "33.32",
+            "name": "苹果",
+            "limit": 1000,
+            "id": "600551"
+        }]
+    }, {
+        "img": ".\/img\/500.png",
+        "name": "液体食品",
+        "id": "500",
+        "items": [{
+            "img": ".\/img\/318583.jpg",
+            "price": "1.96",
+            "name": "农夫山泉天然水550ml",
+            "limit": 1000,
+            "id": "318583"
+        }, {
+            "img": ".\/img\/319011.jpg",
+            "price": "2.45",
+            "name": "晨光凉粉255g",
+            "limit": 1000,
+            "id": "319011"
+        }, {
+            "img": ".\/img\/317972.jpg",
+            "price": "3.43",
+            "name": "伊利100%纯牛奶250ml",
+            "limit": 1000,
+            "id": "317972"
+        }]
+    }, {
+        "img": ".\/img\/501.png",
+        "name": "冲调食品",
+        "id": "501",
+        "items": [{
+            "img": ".\/img\/320022.jpg",
+            "price": "32.80",
+            "name": "伊利全脂营养奶粉400g",
+            "limit": 1000,
+            "id": "320022"
+        }]
+    }, {
+        "img": ".\/img\/502.png",
+        "name": "休闲食品",
+        "id": "502",
+        "items": [{
+            "img": ".\/img\/264339.jpg",
+            "price": "3.82",
+            "name": "日盈无蔗糖减盐苏打饼干海苔味90g",
+            "limit": 1000,
+            "id": "264339"
+        }, {
+            "img": ".\/img\/155624.jpg",
+            "price": "6.37",
+            "name": "盼盼法式小面包200g",
+            "limit": 1000,
+            "id": "155624"
+        }, {
+            "img": ".\/img\/246121.jpg",
+            "price": "2.80",
+            "name": "厨师原汁猪肉干18g",
+            "limit": 1000,
+            "id": "246121"
+        }, {
+            "img": ".\/img\/278957.jpg",
+            "price": "11.56",
+            "name": "老李五香鸡腿85g",
+            "limit": 1000,
+            "id": "278957"
+        }, {
+            "img": ".\/img\/319171.jpg",
+            "price": "11.56",
+            "name": "老李五香鸡翅75g",
+            "limit": 1000,
+            "id": "319171"
+        }, {
+            "img": ".\/img\/326116.jpg",
+            "price": "13.52",
+            "name": "荆江皮蛋6枚塑盒装330g",
+            "limit": 1000,
+            "id": "326116"
+        }, {
+            "img": ".\/img\/326117.jpg",
+            "price": "2.45",
+            "name": "荆江熟咸蛋单枚装60g",
+            "limit": 1000,
+            "id": "326117"
+        }, {
+            "img": ".\/img\/319767.jpg",
+            "price": "7.35",
+            "name": "金恩凡提油渣50g?",
+            "limit": 1000,
+            "id": "319767"
+        }, {
+            "img": ".\/img\/182415.jpg",
+            "price": "19.60",
+            "name": "三皇街东坡肉200g",
+            "limit": 1000,
+            "id": "182415"
+        }, {
+            "img": ".\/img\/274873.jpg",
+            "price": "9.31",
+            "name": "正能酱油肉95g",
+            "limit": 1000,
+            "id": "274873"
+        }, {
+            "img": ".\/img\/317280.jpg",
+            "price": "5.88",
+            "name": "正能烤香鱼50g",
+            "limit": 1000,
+            "id": "317280"
+        }, {
+            "img": ".\/img\/317281.jpg",
+            "price": "8.82",
+            "name": "正能鲨鲞65g",
+            "limit": 1000,
+            "id": "317281"
+        }, {
+            "img": ".\/img\/317282.jpg",
+            "price": "9.80",
+            "name": "正能脆笋扣肉145g",
+            "limit": 1000,
+            "id": "317282"
+        }, {
+            "img": ".\/img\/327839.jpg",
+            "price": "19.60",
+            "name": "三皇街无锡酱排骨160g",
+            "limit": 1000,
+            "id": "327839"
+        }]
+    }, {
+        "img": ".\/img\/503.png",
+        "name": "调味料食品",
+        "id": "503",
+        "items": [{
+            "img": ".\/img\/225303.jpg",
+            "price": "4.41",
+            "name": "一品海原汁原味酱油400ml",
+            "limit": 1000,
+            "id": "225303"
+        }, {
+            "img": ".\/img\/225304.jpg",
+            "price": "2.74",
+            "name": "一品海海螺带嘴陈醋400ml",
+            "limit": 1000,
+            "id": "225304"
+        }]
+    }, {
+        "img": ".\/img\/505.png",
+        "name": "速食食品",
+        "id": "505",
+        "items": [{
+            "img": ".\/img\/103738.jpg",
+            "price": "9.31",
+            "name": "三和四美扬州糟方腐乳500g",
+            "limit": 1000,
+            "id": "103738"
+        }, {
+            "img": ".\/img\/317754.jpg",
+            "price": "2.45",
+            "name": "康师傅鲜虾鱼板面精袋95g",
+            "limit": 1000,
+            "id": "317754"
+        }, {
+            "img": ".\/img\/181166.jpg",
+            "price": "2.94",
+            "name": "双汇台式烤香肠48g",
+            "limit": 1000,
+            "id": "181166"
+        }]
+    }, {
+        "img": ".\/img\/506.png",
+        "name": "特色食品",
+        "id": "506",
+        "items": [{
+            "img": ".\/img\/308852.jpg",
+            "price": "21.56",
+            "name": "三皇街太湖草鸡300g",
+            "limit": 1000,
+            "id": "308852"
+        }]
+    }, {
+        "img": ".\/img\/600.png",
+        "name": "日化用品",
+        "id": "600",
+        "items": [{
+            "img": ".\/img\/110699.jpg",
+            "price": "12.54",
+            "name": "黑人茶倍健龙井绿茶牙膏90g",
+            "limit": 1000,
+            "id": "110699"
+        }, {
+            "img": ".\/img\/800251.jpg",
+            "price": "2.94",
+            "name": "短柄牙刷",
+            "limit": 1000,
+            "id": "800251"
+        }, {
+            "img": ".\/img\/318329.jpg",
+            "price": "27.34",
+            "name": "海飞丝水润滋养洗发露200ml",
+            "limit": 1000,
+            "id": "318329"
+        }, {
+            "img": ".\/img\/288470.jpg",
+            "price": "107.80",
+            "name": "飞利浦剃须刀PQ206\/16",
+            "limit": 1000,
+            "id": "288470"
+        }, {
+            "img": ".\/img\/176555.jpg",
+            "price": "14.70",
+            "name": "舒肤佳健康沐浴露纯白清香型200ml",
+            "limit": 1000,
+            "id": "176555"
+        }, {
+            "img": ".\/img\/118194.jpg",
+            "price": "2.45",
+            "name": "纳爱斯硫磺香皂90g",
+            "limit": 1000,
+            "id": "118194"
+        }, {
+            "img": ".\/img\/308679.jpg",
+            "price": "4.41",
+            "name": "六神清爽香皂金桔+柠檬125g",
+            "limit": 1000,
+            "id": "308679"
+        }, {
+            "img": ".\/img\/318319.jpg",
+            "price": "14.20",
+            "name": "六神驱蚊花露水195ml",
+            "limit": 1000,
+            "id": "318319"
+        }, {
+            "img": ".\/img\/318827.jpg",
+            "price": "10.29",
+            "name": "大宝SOD蜜100ml",
+            "limit": 1000,
+            "id": "318827"
+        }, {
+            "img": ".\/img\/258262.jpg",
+            "price": "6.37",
+            "name": "立白超洁清新洗衣粉455g",
+            "limit": 1000,
+            "id": "258262"
+        }, {
+            "img": ".\/img\/249925.jpg",
+            "price": "5.39",
+            "name": "雕牌高级洗衣皂228g",
+            "limit": 1000,
+            "id": "249925"
+        }, {
+            "img": ".\/img\/318763.jpg",
+            "price": "5.78",
+            "name": "立白洗洁精500g",
+            "limit": 1000,
+            "id": "318763"
+        }]
+    }, {
+        "img": ".\/img\/601.png",
+        "name": "纸类用品",
+        "id": "601",
+        "items": [{
+            "img": ".\/img\/309585.jpg",
+            "price": "6.37",
+            "name": "清风原木纯品平板纸350g",
+            "limit": 1000,
+            "id": "309585"
+        }, {
+            "img": ".\/img\/329085.jpg",
+            "price": "6.76",
+            "name": "苹果王绿领优品卫生纸400g",
+            "limit": 1000,
+            "id": "329085"
+        }, {
+            "img": ".\/img\/318904.jpg",
+            "price": "2.94",
+            "name": "心相印餐巾纸T2125",
+            "limit": 1000,
+            "id": "318904"
+        }, {
+            "img": ".\/img\/318904.jpg",
+            "price": "3.92",
+            "name": "护舒宝超值棉柔贴身日用5P",
+            "limit": 1000,
+            "id": "318904"
+        }, {
+            "img": ".\/img\/123056.jpg",
+            "price": "11.27",
+            "name": "七度空间纯棉超薄夜用10片",
+            "limit": 1000,
+            "id": "123056"
+        }, {
+            "img": ".\/img\/110789.jpg",
+            "price": "6.37",
+            "name": "七度空间女生护垫无香型18片",
+            "limit": 1000,
+            "id": "110789"
+        }]
+    }, {
+        "img": ".\/img\/602.png",
+        "name": "居家用品",
+        "id": "602",
+        "items": [{
+            "img": ".\/img\/201081.jpg",
+            "price": "6.37",
+            "name": "500ml茶水杯",
+            "limit": 1000,
+            "id": "201081"
+        }, {
+            "img": ".\/img\/201087.jpg",
+            "price": "7.35",
+            "name": "脸盆",
+            "limit": 1000,
+            "id": "201087"
+        }]
+    }, {
+        "img": ".\/img\/604.png",
+        "name": "文体用品",
+        "id": "604",
+        "items": [{
+            "img": ".\/img\/320062.jpg",
+            "price": "7.84",
+            "name": "中佳笔记本2202",
+            "limit": 1000,
+            "id": "320062"
+        }, {
+            "img": ".\/img\/318241.jpg",
+            "price": "0.49",
+            "name": "信封2号",
+            "limit": 1000,
+            "id": "318241"
+        }, {
+            "img": ".\/img\/318240.jpg",
+            "price": "2.94",
+            "name": "信纸单线",
+            "limit": 1000,
+            "id": "318240"
+        }, {
+            "img": ".\/img\/154999.jpg",
+            "price": "1.96",
+            "name": "金万年0.5中性笔",
+            "limit": 1000,
+            "id": "154999"
+        }]
+    }, {
+        "img": ".\/img\/605.png",
+        "name": "家电",
+        "id": "605",
+        "items": [{
+            "img": ".\/img\/200487.jpg",
+            "price": "2.94",
+            "name": "双鹿电池5号(单个)",
+            "limit": 1000,
+            "id": "200487"
+        }]
+    }, {
+        "img": ".\/img\/606.png",
+        "name": "服饰装饰",
+        "id": "606",
+        "items": [{
+            "img": ".\/img\/217294.jpg",
+            "price": "10.29",
+            "name": "恒源祥精棉运动女袜4583",
+            "limit": 1000,
+            "id": "217294"
+        }, {
+            "img": ".\/img\/217294.jpg",
+            "price": "8.82",
+            "name": "男丝袜",
+            "limit": 1000,
+            "id": "217294"
+        }, {
+            "img": ".\/img\/270742.jpg",
+            "price": "9.31",
+            "name": "男棉袜",
+            "limit": 1000,
+            "id": "270742"
+        }, {
+            "img": ".\/img\/115584.jpg",
+            "price": "16.17",
+            "name": "洁丽雅格子缎档圆点毛巾6237",
+            "limit": 1000,
+            "id": "115584"
+        }, {
+            "img": ".\/img\/217306.jpg",
+            "price": "17.64",
+            "name": "男凉拖鞋",
+            "limit": 1000,
+            "id": "217306"
+        }, {
+            "img": ".\/img\/800501.jpg",
+            "price": "38.00",
+            "name": "女式运动背心",
+            "limit": 1000,
+            "id": "800501"
+        }, {
+            "img": ".\/img\/275369.jpg",
+            "price": "17.64",
+            "name": "女式内裤（2条装）",
+            "limit": 1000,
+            "id": "275369"
+        }, {
+            "img": ".\/img\/217297.jpg",
+            "price": "22.54",
+            "name": "灰色男背心",
+            "limit": 1000,
+            "id": "217297"
+        }, {
+            "img": ".\/img\/251202.jpg",
+            "price": "31.36",
+            "name": "2条盒裤",
+            "limit": 1000,
+            "id": "251202"
+        }]
+    }, {
+        "img": ".\/img\/701.png",
+        "name": "服务商品",
+        "id": "701",
+        "items": [{
+            "img": ".\/img\/200674.jpg",
+            "price": "1.18",
+            "name": "邮票1.2元",
+            "limit": 1000,
+            "id": "200674"
+        }]
+    }]
 
 	
 })

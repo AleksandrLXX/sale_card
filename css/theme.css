@@ -273,3 +273,13 @@ div {
     font-size: 85px;
     user-select: none;
 }
+.content  .swiper-container{
+    width:100%;
+    max-height:calc(100vh - 410px);
+    overflow:hidden;
+}
+.swiper-container.list-container{
+    width:100%;
+    max-height:calc(100vh - 410px);
+    overflow:hidden;
+}
